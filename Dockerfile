@@ -5,28 +5,6 @@ RUN     apt-get update && apt-get install -y build-essential python-dev python-p
         #apt-get update && apt-get install -y build-essential python-dev python-pip wget && apt-get clean
         pip install pgxnclient
 
-#RUN    export http_proxy=http://H77833:Macif123@proxy.igrt.macif.fr:3128 && \
-#        export https_proxy=http://H77833:Macif123@proxy.igrt.macif.fr:3128 && \
-#       apt-get install -y libreadline-dev zlib1g-dev && \
-#       cd / && \
-#       wget https://ftp.postgresql.org/pub/source/v9.5.3/postgresql-9.5.3.tar.gz && \
-#       tar xvzf postgresql-9.5.3.tar.gz && \
-#       cd postgresql-9.5.3 && \
-#       sed -i "s/NAMEDATALEN 64/NAMEDATALEN 512/g" ./src/include/pg_config_manual.h && \
-#       ./configure && \
-#       make world && \
-#       make install-world && \
-#       cd / && \
-#       rm -rf postgresql-9.5.3 postgresql-9.5.3.tar.gz
-
-#RUN    export http_proxy=http://H77833:Macif123@proxy.igrt.macif.fr:3128 && \
-#        export https_proxy=http://H77833:Macif123@proxy.igrt.macif.fr:3128 && \
-#       export PATH=$PATH:/usr/local/pgsql/bin && \
-#       useradd -m postgres && \
-#       mkdir -p /usr/local/pgsql/data && \
-#       chown -R postgres: /usr/local/pgsql/data && \
-#       su - postgres -c "/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data"
-
 # Multicorn
 RUN     pgxn install multicorn
 
