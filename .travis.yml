@@ -13,4 +13,4 @@ script:
   - ls || docker build -t goodjob/postgres-fdw .
 
 after_success:
-  "curl https://githook.gj.kr0.fr?branch=$TRAVIS_BRANCH"
+  - bash deploy.sh
