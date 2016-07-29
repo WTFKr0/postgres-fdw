@@ -3,14 +3,8 @@ sudo: required
 services:
   - docker
 
-before_install:
- - ls || curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
- - ls || chmod +x docker-compose
- - ls || sudo mv docker-compose /usr/local/bin
-
 script:
-  - ls -lah
-  - ls || docker build -t goodjob/postgres-fdw .
+  - docker build -t goodjob/postgres-fdw .
 
 after_success:
   - bash deploy.sh
