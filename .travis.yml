@@ -11,3 +11,6 @@ before_install:
 script:
   - ls -lah
   - docker build -t goodjob/postgres-fdw .
+
+after_success:
+    "curl -X POST -H 'Content-Type: application/json' -d {"branch":"$TRAVIS_BRANCH"} https://githook.gj.kr0.fr"
