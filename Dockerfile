@@ -19,18 +19,20 @@ RUN     apt-get install -y libmysqlclient-dev && \
         rm -rf mysql_fdw-REL-2_1_2 REL-2_1_2.tar.gz
 
 # Oracle
-#ADD     instant_client.tar.gz /
-#RUN     echo /instantclient_12_1 | tee -a /etc/ld.so.conf.d/oracle_instant_client.conf && \
-#        ldconfig && \
-#        apt-get install -y libaio1 && \
-#        export ORACLE_HOME=/instantclient_12_1 && \
-#        wget https://github.com/laurenz/oracle_fdw/archive/ORACLE_FDW_1_4_0.tar.gz && \
-#        tar xvzf ORACLE_FDW_1_4_0.tar.gz && \
-#        cd oracle_fdw-ORACLE_FDW_1_4_0 && \
-#        make USE_PGXS=1 && \
-#        make USE_PGXS=1 install && \
-#        cd .. && \
-#        rm -rf ORACLE_FDW_1_4_0.tar.gz oracle_fdw-ORACLE_FDW_1_4_0
+ADD     instantclient_12_1.tar.gz /instantclient_12_1
+RUN     ln -s /instantclient_12_1/libclntsh.so.12.1 /instantclient_12_1/libclntsh.so && \
+        echo /instantclient_12_1 | tee -a /etc/ld.so.conf.d/oracle_instant_client.conf && \
+        ldconfig && \
+        apt-get install -y libaio1 && \
+        export ORACLE_HOME=/instantclient_12_1 && \
+        wget https://github.com/laurenz/oracle_fdw/archive/ORACLE_FDW_1_4_0.tar.gz && \
+        tar xvzf ORACLE_FDW_1_4_0.tar.gz && \
+        cd oracle_fdw-ORACLE_FDW_1_4_0 && \
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/instantclient_12_1/ && \
+        make USE_PGXS=1 && \
+        make USE_PGXS=1 install && \
+        cd .. && \
+        rm -rf ORACLE_FDW_1_4_0.tar.gz oracle_fdw-ORACLE_FDW_1_4_0
 
 # Redis
 RUN     apt-get install -y libhiredis-dev && \
