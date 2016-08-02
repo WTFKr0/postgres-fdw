@@ -4,7 +4,8 @@ services:
   - docker
 
 script:
-  - docker build -t goodjob/postgres-fdw .
+  - docker build -t goodjob/postgres-fdw:base -f Dockerfile.base .
+  - docker build -t goodjob/postgres-fdw:oracle -f Dockerfile.oracle .
 
 after_success:
   - bash deploy.sh
